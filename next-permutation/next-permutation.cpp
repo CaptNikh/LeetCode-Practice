@@ -15,13 +15,14 @@ public:
                 break;
             }
         }
+//         step 2 -> for last permutation reverse
         if (index == -1)
         {
             reverse(arr.begin(), arr.end());
                 return;
         }
-            
-        
+  
+        //         find from last index of the number greater than arr[index]
         for(int i = n - 1; i >= 0; i--)
         {
             if(arr[i] > arr[index])
@@ -30,6 +31,7 @@ public:
                 break;
             }
         }
+//         reverse from index + 1 to end.
         reverse(arr.begin() + index + 1, arr.end());
         return;
     }
