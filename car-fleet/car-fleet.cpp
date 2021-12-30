@@ -16,7 +16,7 @@ public:
             if(arr[i].second < arr[i + 1].second)
                 cnt++;
             else
-                arr[i + 1] = max(arr[i], arr[i + 1]);
+                arr[i + 1].second = max(arr[i].second, arr[i + 1].second);
         }
         return cnt;
     }
