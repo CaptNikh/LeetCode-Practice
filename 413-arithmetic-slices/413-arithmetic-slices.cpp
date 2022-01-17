@@ -7,6 +7,14 @@ public:
         if(n < 3)
             return 0;
         int ans = 0;
+        
+        vector<int> arr(n + 1, 0);
+        arr[3] = 1;
+        
+        for(int i = 4; i <= n; i++)
+        {
+            arr[i] = arr[i - 1] + i - 3 + 1;
+        }
         for(int i = 1; i < n; i++)
         {
             int cnt = 0;
@@ -16,10 +24,7 @@ public:
                 cnt++;
             }
             if(cnt != 0)
-            for(int j = 3; j <= cnt + 2; j++)
-            {
-                ans += (cnt + 2) - j + 1; 
-            }    
+            ans += arr[cnt + 2];    
         }
         return ans;
     }
