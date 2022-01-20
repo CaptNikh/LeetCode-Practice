@@ -2,36 +2,30 @@ class Solution {
 public:
     int removeDuplicates(vector<int>& arr) {
         int n = arr.size();
-        int j = -1;
-        if(n == 1)
-            return 1;
-        for(int i = 0; i < n  - 1; i++)
+        
+        if(n < 2)
+            return n;
+        
+        int j = 1, i = 1;
+        int cnt = 1;
+        
+        while(j < n)
         {
-            int cnt = 0;
-            cnt++;
-            j++;
-            arr[j] = arr[i];
-            
-            while(i < n - 1 && arr[i] == arr[i + 1])
+            if(arr[j] != arr[j - 1])
             {
-                cnt++;       
-                if(cnt <= 2)
-                {
-                    j++;
-                    arr[j] = arr[i];
-                    
-                }
-                i++;
+                arr[i++] = arr[j];
+                cnt = 1;
             }
-        }
-        
-        if(n >= 2 && arr[n - 1] != arr[n - 2])
-        {
+            else
+            {
+                if(cnt < 2)
+                {
+                    cnt++;
+                    arr[i++] = arr[j];
+                }
+            }
             j++;
-            arr[j] = arr[n - 1];
-            
         }
-        
-        return j + 1;     
+        return i;
     }
 };
