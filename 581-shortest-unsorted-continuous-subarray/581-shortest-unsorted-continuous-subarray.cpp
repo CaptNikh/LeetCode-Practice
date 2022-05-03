@@ -1,33 +1,46 @@
 class Solution {
 public:
-    int findUnsortedSubarray(vector<int>& nums) {
+    int findUnsortedSubarray(vector<int>& arr) {
         
-        stack<int> s;
-        int l = nums.size(), r = 0;
-        int n = nums.size();
+        bool sorted = true;
+        int n = arr.size();
+        int l = n;
+        int r = 0;
+        
+        int minInc = INT_MAX;
+        int maxInc = INT_MIN;
+        
+        for(int i = 1; i < n ; i++) {
+            if(arr[i] < arr[i - 1])
+                sorted = false;
+            
+            if(!sorted)
+                minInc = min(minInc, arr[i]);
+        }
+        
+        sorted = true;
+        
+        for(int i = n - 2; i >= 0; i--) {
+            if(arr[i] > arr[i + 1])
+                sorted = false;
+            if(!sorted)
+                maxInc = max(maxInc, arr[i]);
+        }
+        
         for(int i = 0; i < n; i++) {
-            while(!s.empty() && nums[s.top()] > nums[i])
+            if(arr[i] > minInc)
             {
-                l = min(l, s.top());
-                s.pop();
+                l = i;
+                break;
             }
-            s.push(i);
         }
-        while(!s.empty())
-            s.pop();
-        
         for(int i = n - 1; i >= 0; i--) {
-            while(!s.empty() && nums[s.top()] < nums[i])
-            {
-                r = max(r, s.top());
-                s.pop();
+            if(arr[i] < maxInc){
+                r = i;
+                break;
             }
-            s.push(i);
         }
-        
+        // cout << l;
         return r - l > 0 ? r - l + 1 : 0;
-        
-        
-        
     }
 };
