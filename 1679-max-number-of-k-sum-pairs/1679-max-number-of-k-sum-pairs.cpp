@@ -2,22 +2,21 @@ class Solution {
 public:
     int maxOperations(vector<int>& nums, int k) {
         
+        sort(nums.begin(), nums.end());
+        int i = 0, j = nums.size() - 1;
         int count = 0;
-        int n = nums.size();
-        multiset<int> s;        
         
-        for(int i = 0; i < n; i++) {
-            
-            auto it = s.find(k - nums[i]);
-            
-            if(it != s.end()) {
+        while(i < j) {
+            if(nums[i] + nums[j] == k) {
+                i++;
+                j--;
                 count++;
-                s.erase(it);
+            }
+            else if(nums[i] + nums[j] > k) {
+                j--;
             }
             else
-            {
-                s.insert(nums[i]);
-            }
+                i++;
         }
         
         return count;
