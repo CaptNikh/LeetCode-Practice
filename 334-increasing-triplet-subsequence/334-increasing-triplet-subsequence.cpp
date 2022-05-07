@@ -2,24 +2,15 @@ class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
         
-        int n = nums.size();
-        vector<int> prefixMin(n, 0);
-        vector<int> prefixMax(n, 0);
-        
-        prefixMin[0] = nums[0];
-        prefixMax[n - 1] = nums[n - 1];
-        
-        for(int i = 1; i < n; i++) {
-            prefixMin[i] = min(nums[i], prefixMin[i - 1]);
-        }
-        
-        for(int i = n - 2; i >= 0; i--) {
-            prefixMax[i] = max(nums[i], prefixMax[i + 1]);
-        }
+       int max1 = INT_MAX, max2 = INT_MAX;
         
         
-        for(int i = 1; i < n - 1; i++) {
-            if(prefixMax[i] > nums[i] and prefixMin[i] < nums[i])
+        for(int &i : nums) {
+            if(i <= max1)
+                max1 = i;
+            else if(i <= max2)
+                max2 = i;
+            else
                 return true;
         }
         
