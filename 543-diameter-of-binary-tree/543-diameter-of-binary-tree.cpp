@@ -11,29 +11,19 @@
  */
 class Solution {
 public:
-    unordered_map<TreeNode*, int> mp;
-    
+    int res = 0;
     int height(TreeNode* root) {
-        if(!root)
-            return mp[root] = 0;
-        
-        mp[root] = 1 + max(height(root->left), height(root->right));
-        return mp[root];
-    }
-    int helper(TreeNode* root) {
-        // either contained entirely in left or entirely in right we know that
-        
         if(!root)
             return 0;
         
-        int d1 = mp[root->left] + mp[root->right];
-        int d2 = helper(root->left);
-        int d3 = helper(root->right);
+        int lh = height(root->left);
+        int rh = height(root->right);
         
-        return max({d1, d2, d3});
+        res = max(res, lh + rh);
+        return 1 + max(lh, rh);
     }
     int diameterOfBinaryTree(TreeNode* root) {
         height(root);
-        return helper(root);
+        return res;
     }
 };
