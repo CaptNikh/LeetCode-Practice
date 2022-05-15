@@ -11,14 +11,23 @@
  */
 class Solution {
 public:
-    TreeNode* pruneTree(TreeNode* root) {
-
+    int pruneTreeHelper (TreeNode* root) {
         if(!root)
             return NULL;
-        root->left = pruneTree(root->left);
-        root->right = pruneTree(root->right);
         
-        if(!root->left && !root->right && root->val == 0)
+        int x = pruneTreeHelper(root->left), y = pruneTreeHelper(root->right);
+        if(x == 0)
+           root->left = NULL;
+        if(y == 0)
+           root->right = NULL;
+        
+        return (root->val || x || y);
+        
+    }
+    TreeNode* pruneTree(TreeNode* root) {
+        
+        pruneTreeHelper(root);
+        if(root->val == 0 && !root->left && !root->right)
             return NULL;
         return root;
         
